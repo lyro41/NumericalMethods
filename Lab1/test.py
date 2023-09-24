@@ -7,8 +7,7 @@ import simple_iteration as si
 def almostEqual(a, b, eps=1e-6):
   return abs(a - b) < eps
 
-class Testsolveotomy(unittest.TestCase):
-
+class TestDichotomy(unittest.TestCase):
   def test_correct(self):
     eps = 1e-2
     
