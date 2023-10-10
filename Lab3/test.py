@@ -328,6 +328,97 @@ class TestSimpleIteration(unittest.TestCase):
         si.simple_iteration(matrix)
       self.assertTrue("system has no solutions" in str(context.exception))
 
+class TestSeidel(unittest.TestCase):
+  def test_correct(self):
+    eps = 1e-3
+
+    matrices = [
+      np.array([
+        [2, 2, 10, 14],
+        [10, 2, 2, 12],
+        [2, 10, 2, 13]
+      ], dtype=np.float64),
+      np.array([
+        [1,  1, 7],
+        [3, -1, 25]
+      ], dtype=np.float64),
+      np.array([
+        [3, 0],
+      ], dtype=np.float64),
+    ]
+
+    solutions = [
+      [45/56, 13/14, 59/56],
+      [8, -1],
+      [0]
+    ]
+
+    for i in range(len(matrices)):
+      result = si.seidel(matrices[i], eps)
+      self.assertTrue(isSolution(solutions[i], result, eps))
+  
+  def test_diverges(self):
+    matrices = [
+      np.array([
+        [1, 2,  1,  8],
+        [3, 2,  1, 10],
+        [4, 3, -2,  4]
+      ], dtype=np.float64),
+      np.array([
+        [3,  2, -5, -1],
+        [2, -1,  3, 13],
+        [1,  2, -1,  9]
+      ], dtype=np.float64),
+    ]
+
+    for matrix in matrices:
+      with self.assertRaises(ValueError) as context:
+        si.simple_iteration(matrix)
+      self.assertTrue("simple iteration diverges" in str(context.exception))
+
+  def test_undetermined(self):
+    matrices = [
+      np.array([
+        [2, -1,  3,  -5, 1],
+        [1, -1, -5,   0, 2],
+        [3, -2, -2,  -5, 3],
+        [7, -5, -9, -10, 8]
+      ], dtype=float),
+      np.array([
+        [2, -1,  3,  -5, 1],
+        [1, -1, -5,   0, 2]
+      ], dtype=float),
+      np.array([
+        [2, 1, 1],
+        [4, 2, 2]
+      ], dtype=float),
+      np.array([
+        [0, 0],
+      ], dtype=float),
+    ]
+
+    for matrix in matrices:
+      with self.assertRaises(ValueError) as context:
+        si.seidel(matrix)
+      self.assertTrue("system is undetermined" in str(context.exception))
+
+  def test_no_solution(self):
+    matrices = [
+      np.array([
+        [1, -1,  3],
+        [1, -1, -5]
+      ], dtype=float),
+      np.array([
+        [1, -1,  3],
+        [2, -2, 7]
+      ], dtype=float),
+    ]
+
+    for matrix in matrices:
+      with self.assertRaises(ValueError) as context:
+        si.seidel(matrix)
+      self.assertTrue("system has no solutions" in str(context.exception))
+
 
 if __name__ == "__main__":
   unittest.main()
