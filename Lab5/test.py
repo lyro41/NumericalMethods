@@ -1,11 +1,14 @@
 import unittest
 
-import general_case as gc
+if __name__ == "__main__":
+  import general_case as gc
+else:
+  from . import general_case as gc
 
 def isEqual(solution, found, eps=1e-6):
   return abs(solution - found) <= eps
 
-class TestRotation(unittest.TestCase):
+class TestGeneralCase(unittest.TestCase):
   variable_list = [3, 4, 5, 6]
   values_list = [1, 0, 4, 2]
   x_star = 4.5

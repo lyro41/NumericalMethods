@@ -1,8 +1,12 @@
 import unittest
 import numpy as np
 
-import gauss
-import simple_iteration as si
+if __name__ == "__main__":
+  import gauss
+  import simple_iteration as si
+else:
+  from . import gauss
+  from . import simple_iteration as si
 
 def isSolution(solution, found, eps=1e-6):
   if len(solution) != len(found):

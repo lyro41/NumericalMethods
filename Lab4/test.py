@@ -1,8 +1,12 @@
 import unittest
 import numpy as np
 
-import iteration as iter
-import rotation as rot
+if __name__ == "__main__":
+  import iteration as iter
+  import rotation as rot
+else:
+  from . import iteration as iter
+  from . import rotation as rot
 
 def isSolution(solution, found, eps=1e-6):
   if len(solution) != len(found):

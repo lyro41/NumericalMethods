@@ -1,8 +1,12 @@
 import unittest
 import random
 
-import dichotomy as dich
-import simple_iteration as si
+if __name__ == "__main__":
+  import dichotomy as dich
+  import simple_iteration as si
+else:
+  from . import dichotomy as dich
+  from . import simple_iteration as si
 
 def almostEqual(a, b, eps=1e-6):
   return abs(a - b) < eps

@@ -1,11 +1,14 @@
 import unittest
 
-import polynomial_interpolation as pi
+if __name__ == "__main__":
+  import polynomial_interpolation as pi
+else:
+  from . import polynomial_interpolation as pi
 
 def isEqual(solution, found, eps=1e-6):
   return abs(solution - found) <= eps
 
-class TestRotation(unittest.TestCase):
+class TestPolynomialInterpolation(unittest.TestCase):
   variables = [0, 1, 2, 3]
   values = [1, 2, 4, 1]
   x_star = 1.5

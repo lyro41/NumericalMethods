@@ -1,12 +1,15 @@
 import unittest
 import numpy as np
 
-import integral_smoothing as ism
+if __name__ == "__main__":
+  import integral_smoothing as ism
+else:
+  from . import integral_smoothing as ism
 
 def isEqual(solution, found, eps=1e-6):
   return abs(solution - found) <= eps
 
-class TestRotation(unittest.TestCase):
+class TestIntegralSmoothing(unittest.TestCase):
   def test_correct(self):
     eps = 1e-3
     variables = [

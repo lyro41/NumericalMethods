@@ -1,10 +1,16 @@
 import unittest
 import random
 
-import newton
-import simplified_newton as snewton
-import newton_broyden as broyden
-import secant
+if __name__ == "__main__":
+  import newton
+  import simplified_newton as snewton
+  import newton_broyden as broyden
+  import secant
+else:
+  from . import newton
+  from . import simplified_newton as snewton
+  from . import newton_broyden as broyden
+  from . import secant
 
 def isRoot(solutions, found, eps=1e-6):
   for solution in solutions:
